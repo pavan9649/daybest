@@ -1,27 +1,16 @@
 const {User}=require('../models/user');
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-
-function getToken(payload, secret = process.env.jwt_secret) {
-  let token = jwt.sign(
-    {
-      ...payload,
-      exp: Math.floor(Date.now() / 1000) + 3600 * 24 * 365,
-    },
-    secret
-  );
-  return token;
-}
-
-
+const sendToken = require("../utils/jwtToken");
+const sendEmail=require("../utils/sendEmail");
+const crypto = require("crypto");
+const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const ErrorHander= require("../utils/errorhandler")
 exports.signup= async (req, res) => {
   //console.log(req.body)
   
     User.find({ email: req.body.email }, async (err, result) => {
         if (err) res.status(400).json({ message: "already registered" });
         else{
-          let user
-          if(req.body.usertype=="admin")
           {
             user = new User({
               name:req.body.name,
@@ -32,19 +21,8 @@ exports.signup= async (req, res) => {
               usertype:req.body.usertype,
               isAdmin:true
           })
-          user = await user.save();
-        }
-
-        else{
-           user = new User({
-            name:req.body.name,
-            username: req.body.username,
-            email: req.body.email,
-            password:bcrypt.hashSync(req.body.password,10),
-            phone: req.body.phone,
-            usertype:req.body.usertype
-    
-          });
+         
+        
           user = await user.save();
         }
           
@@ -60,24 +38,14 @@ exports.signup= async (req, res) => {
 
 exports.signin=async(req,res)=>{
     const user=await User.findOne({$and:[{email:req.body.email},{usertype:req.body.usertype}]});
-    const secret=process.env.JWT_SEC
+    //const secret=process.env.JWT_SEC
       if(!user)
       {
           return res.status(400).send({message:"the user not found"});
       }
       if(user && bcrypt.compareSync(req.body.password,user.password))
       {
-        const token=jwt.sign(
-          {
-              userId: user.id,
-
-        },
-        secret,
-        {
-            expiresIn: "1d"
-        }
-      );
-        return res.status(200).send({user:user,token:token});  
+        sendToken(user, 200, res);
         
       }
       else{
@@ -89,3 +57,90 @@ exports.dashboard=(req,res)=>{
   res.status(200).send({message:"welocme in dashboard"});
 
 }
+
+exports.logout = catchAsyncErrors(async (req, res, next) => {
+  res.cookie("token", null, {
+    expires: new Date(Date.now()),
+    httpOnly: true,
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "Logged Out",
+  });
+});
+
+exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email });
+
+  if (!user) {
+    return next(new ErrorHander("User not found", 404));
+  }
+
+  // Get ResetPassword Token
+  const resetToken = user.getResetPasswordToken();
+
+  await user.save();
+
+  const resetPasswordUrl = `${req.protocol}://${req.get(
+    "host"
+  )}/password/reset/${resetToken}`;
+
+  const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
+
+  try {
+    await sendEmail({
+      email: user.email,
+      subject: `Daybest Password Recovery`,
+      message,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: `Email sent to ${user.email} successfully`,
+    });
+  } catch (error) {
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save();
+
+    return next(new ErrorHander(error.message, 500));
+  }
+});
+
+
+
+exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
+  // creating token hash
+  const resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(req.params.token)
+    .digest("hex");
+
+  const user = await User.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    return next(
+      new ErrorHander(
+        "Reset Password Token is invalid or has been expired",
+        400
+      )
+    );
+  }
+
+  if (req.body.password !== req.body.confirmPassword) {
+    return next(new ErrorHander("Password does not password", 400));
+  }
+
+  user.password = req.body.password;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpire = undefined;
+
+  await user.save();
+
+  sendToken(user, 200, res);
+})
