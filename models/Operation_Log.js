@@ -30,7 +30,24 @@ const OperationSchema = new Schema({
     },
     Flight_Supervisor_id:{
         type:String,
-    }
+    },
+    Pilot_id:{
+        type:String,
+    },
+    Uin_DAN:{
+        type:String,
+    },
+    Mobile_Number:{
+        type:String,
+        require: true
+    },
+    Authorized_By:{
+        type:String,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+      },
 
 })
 const OperationLog = mongoose.model("OperationLog", OperationSchema);

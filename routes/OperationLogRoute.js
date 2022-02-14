@@ -8,4 +8,4 @@ const {
   } = require("../middleware/middle");
 
 router.post("/Add_Details",verifyToken,opUserController.OperationUser);
-module.exports = router
+module.exports = router;

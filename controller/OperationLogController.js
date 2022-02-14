@@ -11,7 +11,12 @@ exports.OperationUser=catchAsyncErrors(async (req, res, next) => {
        Pilot_name,
        Crew_id,
        Designation,
-       Flight_Supervisor_id
+       Flight_Supervisor_id,
+       Pilot_id,
+       Uin_DAN,
+       Mobile_Number,
+       Authorized_By
+
    }=req.body;
 
    const operation_Log = await OperationLog.create({
@@ -22,7 +27,11 @@ exports.OperationUser=catchAsyncErrors(async (req, res, next) => {
        Pilot_name,
        Crew_id,
        Designation,
-       Flight_Supervisor_id
+       Flight_Supervisor_id,
+       Pilot_id,
+       Uin_DAN,
+       Mobile_Number,
+       Authorized_By
   });
   if (!operation_Log) return res.status(400).send({message:"the user cannot be created!"});
   res.status(201).json({
