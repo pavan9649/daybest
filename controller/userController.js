@@ -9,6 +9,7 @@ exports.signup= async (req, res) => {
   //console.log(req.body)
   
     User.find({ email: req.body.email }, async (err, result) => {
+      let user
         if (err) res.status(400).json({ message: "already registered" });
         else{
           {
@@ -18,8 +19,7 @@ exports.signup= async (req, res) => {
               email: req.body.email,
               password:bcrypt.hashSync(req.body.password,10),
               phone: req.body.phone,
-              usertype:req.body.usertype,
-              isAdmin:true
+              role:req.body.role,
           })
          
         
