@@ -23,7 +23,7 @@ const UserSchema = new Schema({
       type: String,
       require: true,
     },
-    role: {
+    usertype: {
       type: String,
        require: true,
     },
