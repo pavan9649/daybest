@@ -1,6 +1,37 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+
+const flightSchema= new Schema({
+    Flight_Log_NO:{
+        type: String,
+        require: true
+    },
+    Drone_Id:{
+        type: String,
+        require: true
+    },
+    Payload_Type:{
+        type: String,
+        require: true
+    },
+    Take_Off_site:{
+        type: String,
+    },
+    Operation_Start_Time:{
+        type: String,
+        require: true
+    },
+    Distance_Covered:{
+        type: String,
+        require: true
+    },
+    Remarks:{
+        type: String,
+    }
+
+})
+
 const OperationSchema = new Schema({
     Date:{
         type: String,
@@ -44,6 +75,7 @@ const OperationSchema = new Schema({
     Authorized_By:{
         type:String,
     },
+    Flight_Details:[flightSchema],
     createdAt: {
         type: Date,
         default: Date.now,
