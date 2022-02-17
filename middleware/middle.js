@@ -7,9 +7,9 @@ async function auth(req, res, next) {
       secret = process.env.jwt_secret_admin;
     }
   
-    const authHeader = req.header('x-auth-token')
-    //const token = authHeader.split(" ")[1]
-     await jwt.verify(authHeader, secret);
+    const authHeader = req.header('Authorization')
+    const token = authHeader.split(" ")[1]
+    let decode = await jwt.verify(authHeader, secret);
     next();
   } catch (e) {
     res.status(403).json({ message: "user is not authenticated" });
