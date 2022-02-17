@@ -11,13 +11,13 @@ const verifyToken = (req, res, next) => {
     });
     //console.log(req.user,6565)
   } else {
-    return res.status(401).json("You are not authenticated");
+    return res.status(401).json({message:"You are not authenticated"});
   }
 };
 
 const verifyTokenAndAuthorization = (req, res, next) => {
   verifyToken(req, res, () => {
-    if (req.user.id === req.parms.id || req.user.isAdmin) {
+    if (req.user.id === req.parms.id || req.user.role) {
       next();
     } else {
       res.status(403).json("You are not allowed");

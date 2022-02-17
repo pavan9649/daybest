@@ -36,7 +36,7 @@ exports.signup= async (req, res) => {
 
 
 
-exports.signin=async(req,res)=>{
+exports.signin=catchAsyncErrors(async(req,res,next)=>{
     const user=await User.findOne({$and:[{email:req.body.email},{usertype:req.body.usertype}]});
     //const secret=process.env.JWT_SEC
       if(!user)
@@ -50,8 +50,9 @@ exports.signin=async(req,res)=>{
       }
       else{
         return res.status(400).send({message: "password or email didn't match"});
+       // return next(new ErrorHander("Password or email didn't match'", 400));
       }
-  }
+  });
  
 exports.dashboard=(req,res)=>{
   res.status(200).send({message:"welocme in dashboard"});

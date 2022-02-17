@@ -36,6 +36,7 @@ const OperationSchema = new Schema({
     Date:{
         type: String,
         require: true,
+        unique: true
     },
     Crew_name:{
         type: String,
@@ -46,10 +47,10 @@ const OperationSchema = new Schema({
         require: true
     },
     Flight_Supervisor:{
-        type: Array,
+        type: String,
     },
     Pilot_name:{
-        type: Array,
+        type: String,
         require: true
     },
     Crew_id:{
@@ -75,7 +76,7 @@ const OperationSchema = new Schema({
     Authorized_By:{
         type:String,
     },
-    Flight_Details:[flightSchema],
+   // Flight_Details:[flightSchema],
     createdAt: {
         type: Date,
         default: Date.now,
