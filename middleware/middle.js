@@ -8,8 +8,8 @@ async function auth(req, res, next) {
     }
   
     const authHeader = req.header('Authorization')
-    const token = authHeader.split(" ")[1]
-    let decode = await jwt.verify(token, secret);
+    //const token = authHeader.split(" ")[1]
+    let decode = await jwt.verify(authHeader, secret);
     next();
   } catch (e) {
     res.status(403).json({ message: "user is not authenticated" });
