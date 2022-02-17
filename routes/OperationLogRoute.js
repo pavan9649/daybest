@@ -7,6 +7,6 @@ const {
     verifyTokenAndAdmin,
   } = require("../middleware/middle");
 
-router.post("/Add_Details",auth,opUserController.OperationUser);
+router.post("/Add_Details",opUserController.OperationUser);
 router.post("/find_user",auth,opUserController.OperationUserFind);
 module.exports = router;
