@@ -9,7 +9,7 @@ async function auth(req, res, next) {
   
     const authHeader = req.header('Authorization')
     const token = authHeader.split(" ")[1]
-    let decode = await jwt.verify(token, secret);
+     await jwt.verify(token, secret);
     next();
   } catch (e) {
     res.status(403).json({ message: "user is not authenticated" });
