@@ -8,18 +8,15 @@ async function auth(req, res, next) {
     }
   
     const authHeader = req.header('Authorization')
-    console.log(authHeader,8)
+    //console.log(authHeader,8)
     const token = authHeader.split(" ")[1]
-     await jwt.verify(token, secret);
+     jwt.verify(token, secret);
     next();
   } catch (e) {
     res.status(403).json({ message: "user is not authenticated" });
   }
 }
-let p="pavan";
 
-let t=`Bearer ${p}`;
-console.log(t)
 
 const verifyTokenAndAuthorization = (req, res, next) => {
   verifyToken(req, res, () => {
