@@ -12,14 +12,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const user = require("./routes/userRoute");
 const OperationLog=require("./routes/OperationLogRoute");
-//const dashboard=require("./routes/dashboardRoute");
+const dashboard=require("./routes/dashboardRoute");
 app.get("/",(req,res)=>{
     res.status(200).send({message:"all is well"});
 })
 
 app.use("/user", user);
 app.use("/operation_Log",OperationLog);
-//app.use("/api/v1/",dashboard);
+app.use("/dashboard",dashboard);
 
 app.use(cookieParser());
 process.on("uncaughtException", (err) => {

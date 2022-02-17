@@ -6,6 +6,6 @@ const {
     verifyTokenAndAuthorization,
     verifyTokenAndAdmin,
   } = require("../middleware/middle");
-router.get("/",dashboardController.dashboard);
+router.get("/",auth,dashboardController.dashboard);
 
 module.exports=router;
