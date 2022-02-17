@@ -5,6 +5,22 @@ const sendEmail=require("../utils/sendEmail");
 const crypto = require("crypto");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ErrorHander= require("../utils/errorhandler")
+const jwt = require("jsonwebtoken")
+
+
+
+
+function getToken(payload, secret = process.env.jwt_secret) {
+  let token = jwt.sign(
+    {
+      ...payload,
+      exp: Math.floor(Date.now() / 1000) + 3600 * 24 * 365,
+    },
+    secret
+  );
+  return token;
+}
+
 exports.signup= async (req, res) => {
   //console.log(req.body)
   
@@ -46,6 +62,7 @@ exports.signin=catchAsyncErrors(async(req,res,next)=>{
       if(user && bcrypt.compareSync(req.body.password,user.password))
       {
         sendToken(user, 200, res);
+         //getToken({ email: user.email, id: user._id });
         
       }
       else{
