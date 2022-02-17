@@ -1,19 +1,19 @@
 const jwt = require("jsonwebtoken");
 
-const verifyToken = (req, res, next) => {
-  const authHeader = req.header('Authorization')
-  if (authHeader) {
-      console.log(authHeader);
-    const token = authHeader.split(" ")[1];
-    jwt.verify(token, process.env.JWT_SEC, (err, user) => {
-      req.user = user;
-      next();
-    });
-    //console.log(req.user,6565)
-  } else {
-    return res.status(401).json({message:"You are not authenticated"});
+async function auth(req, res, next) {
+  try {
+    let secret = process.env.jwt_secret;
+    if (/admin/.test(req.originalUrl)) {
+      secret = process.env.jwt_secret_admin;
+    }
+    let decode = await jwt.verify(req.header("x-auth-token"), secret);
+    console.log(decode);
+    next();
+  } catch (e) {
+    res.status(403).json({ message: "user is not authenticated" });
   }
-};
+}
+
 
 const verifyTokenAndAuthorization = (req, res, next) => {
   verifyToken(req, res, () => {
@@ -36,7 +36,7 @@ const verifyTokenAndAdmin = (req, res, next) => {
 };
 
 module.exports = {
-  verifyToken,
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
+  auth
 };

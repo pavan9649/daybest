@@ -2,7 +2,7 @@ const dashboardController = require('../controller/dashboardController')
 const express = require('express');
 const router = express.Router();
 const {
-    verifyToken,
+    auth,
     verifyTokenAndAuthorization,
     verifyTokenAndAdmin,
   } = require("../middleware/middle");

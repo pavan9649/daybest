@@ -2,11 +2,11 @@ const opUserController=require('../controller/OperationLogController');
 const express = require('express');
 const router = express.Router();
 const {
-    verifyToken,
+    auth,
     verifyTokenAndAuthorization,
     verifyTokenAndAdmin,
   } = require("../middleware/middle");
 
-router.post("/Add_Details",verifyToken,opUserController.OperationUser);
-router.post("/find_user",verifyToken,opUserController.OperationUserFind);
+router.post("/Add_Details",auth,opUserController.OperationUser);
+router.post("/find_user",auth,opUserController.OperationUserFind);
 module.exports = router;
