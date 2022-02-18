@@ -11,7 +11,7 @@ const {
 router.post("/signup",userController.signup);
 router.post("/signin",userController.signin);
 router.get("/logout",auth,userController.logout);
-router.route("/password/forgot").post(userController.forgotPassword);
+router.route("/forgotPassword").post(userController.forgotPassword);
 
 router.route("/password/reset/:token").put(userController.resetPassword);
 

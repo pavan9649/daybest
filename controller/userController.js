@@ -154,7 +154,7 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHander("Password does not password", 400));
   }
 
-  user.password = req.body.password;
+  user.password = bcrypt.hashSync(req.body.password,10),
   user.resetPasswordToken = undefined;
   user.resetPasswordExpire = undefined;
 
