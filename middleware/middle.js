@@ -2,13 +2,9 @@ const jwt = require("jsonwebtoken");
 
 async function auth(req, res, next) {
   try {
-    let secret = process.env.jwt_secret;
-    if (/admin/.test(req.originalUrl)) {
-      secret = process.env.jwt_secret_admin;
-    }
-  
+    let secret = process.env.JWT_SECRET;
     const authHeader = req.header('Authorization')
-    //console.log(authHeader,8)
+    console.log(authHeader,8)
     const token = authHeader.split(" ")[1]
      jwt.verify(token, secret);
     next();
