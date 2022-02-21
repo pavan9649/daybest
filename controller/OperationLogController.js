@@ -15,8 +15,8 @@ exports.OperationUser=catchAsyncErrors(async (req, res, next) => {
        Pilot_id,
        Uin_DAN,
        Mobile_Number,
-       Authorized_By
-       //Flight_Details
+       Authorized_By,
+       Flight_Details
 
    }=req.body;
 
@@ -32,8 +32,8 @@ exports.OperationUser=catchAsyncErrors(async (req, res, next) => {
        Pilot_id,
        Uin_DAN,
        Mobile_Number,
-       Authorized_By
-       //Flight_Details
+       Authorized_By,
+       Flight_Details
   });
   if (!operation_Log) return res.status(400).send({message:"the operation user cannot be created!"});
   res.status(201).json({

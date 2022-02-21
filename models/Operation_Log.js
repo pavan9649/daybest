@@ -22,9 +22,16 @@ const flightSchema= new Schema({
         type: String,
         require: true
     },
+    Operation_End_Time:{
+        type: String,
+        require: true
+    },
     Distance_Covered:{
         type: String,
         require: true
+    },
+    Duration:{
+        type: String,
     },
     Remarks:{
         type: String,
@@ -76,7 +83,7 @@ const OperationSchema = new Schema({
     Authorized_By:{
         type:String,
     },
-   // Flight_Details:[flightSchema],
+   Flight_Details:[flightSchema],
     createdAt: {
         type: Date,
         default: Date.now,
