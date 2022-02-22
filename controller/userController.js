@@ -10,16 +10,7 @@ const jwt = require("jsonwebtoken")
 
 
 
-function getToken(payload, secret = process.env.jwt_secret) {
-  let token = jwt.sign(
-    {
-      ...payload,
-      exp: Math.floor(Date.now() / 1000) + 3600 * 24 * 365,
-    },
-    secret
-  );
-  return token;
-}
+
 
 exports.signup= async (req, res) => {
   //console.log(req.body)

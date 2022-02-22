@@ -43,7 +43,7 @@ const UserSchema = new Schema({
       expiresIn: process.env.JWT_EXPIRE,
     });
   };
-
+ 
 
   UserSchema.methods.comparePassword = async function (password) {
     return await bcrypt.compare(password, this.password);

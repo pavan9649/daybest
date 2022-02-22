@@ -48,7 +48,7 @@ exports.OperationUserFind=catchAsyncErrors(async (req, res, next) => {
   let user=await OperationLog.findOne({$and:[{Date:`${date}`}]});
     
         if(!user) {
-          res.status(400).send({message:"dara not exist"})
+          res.status(400).send({message:"datanot exist"})
         }
         else
         {
@@ -56,4 +56,14 @@ exports.OperationUserFind=catchAsyncErrors(async (req, res, next) => {
         }
 
       
+})
+
+exports.OperationUserUpdate=catchAsyncErrors(async (req, res, next) => {
+  let Date=req.query.Date;
+
+  const query = { Date: `${Date}` };
+  const dab=await OperationLog.findOneAndUpdate(query, { $set: { Crew_name: 'jason bourne' }})
+  res.status(200).send(dab)
+  
+
 })
