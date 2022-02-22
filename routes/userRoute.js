@@ -11,8 +11,8 @@ const {
 router.post("/signup",userController.signup);
 router.post("/signin",userController.signin);
 router.get("/logout",auth,userController.logout);
-router.route("/forgotPassword").post(userController.forgotPassword);
+router.post("/forgotPassword",userController.forgotPassword);
 
-router.route("/password/reset/:token").put(userController.resetPassword);
+router.put("/password/reset/:token",userController.resetPassword);
 
 module.exports = router;  
