@@ -84,7 +84,7 @@ const OperationSchema = new Schema({
         type:String,
     },
    Flight_Details:[flightSchema],
-   addedBy:{
+   User_Id:{
        type:Schema.ObjectId
 
    },
