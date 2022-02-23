@@ -2,7 +2,8 @@ const {OperationLog}=require("../models/Operation_Log");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ErrorHander= require("../utils/errorhandler")
 
-exports.OperationUser=catchAsyncErrors(async (req, res, next) => {
+exports.OperationUser=catchAsyncErrors(async (req, res) => {
+
    const{
        Date,
        Crew_name,
@@ -19,6 +20,7 @@ exports.OperationUser=catchAsyncErrors(async (req, res, next) => {
        Flight_Details
 
    }=req.body;
+     const addedBy=req.user.id;
 
    const operation_Log = await OperationLog.create({
        Date,
@@ -33,7 +35,8 @@ exports.OperationUser=catchAsyncErrors(async (req, res, next) => {
        Uin_DAN,
        Mobile_Number,
        Authorized_By,
-       Flight_Details
+       Flight_Details,
+       addedBy,
   });
   if (!operation_Log) return res.status(400).send({message:"the operation user cannot be created!"});
   res.status(201).json({
@@ -45,7 +48,7 @@ exports.OperationUser=catchAsyncErrors(async (req, res, next) => {
 
 exports.OperationUserFind=catchAsyncErrors(async (req, res, next) => {
   let date=req.body.Date;
-  let user=await OperationLog.findOne({$and:[{Date:`${date}`}]});
+  let user=await OperationLog.findOne({$and:[{Date:`${date}`},{addedBy:`${req.user.id}`}]});
     
         if(!user) {
           res.status(400).send({message:"datanot exist"})
@@ -62,8 +65,13 @@ exports.OperationUserUpdate=catchAsyncErrors(async (req, res, next) => {
   let Date=req.query.Date;
 
   const query = { Date: `${Date}` };
-  const dab=await OperationLog.findOneAndUpdate(query, { $set: { Crew_name: 'jason bourne' }})
-  res.status(200).send(dab)
+  try{
+    const dab=await OperationLog.findOneAndUpdate(query, { $set: { Crew_name: 'jason bourne' }})
+    res.status(200).send(dab)
+  }catch(err) {
+
+  }
+  
   
 
 })

@@ -84,6 +84,10 @@ const OperationSchema = new Schema({
         type:String,
     },
    Flight_Details:[flightSchema],
+   addedBy:{
+       type:Schema.ObjectId
+
+   },
     createdAt: {
         type: Date,
         default: Date.now,

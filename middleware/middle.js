@@ -2,10 +2,16 @@ const jwt = require("jsonwebtoken");
 
 async function auth(req, res, next) {
   try {
-    let secret = process.env.JWT_SECRET;
-    let decode = await jwt.verify(req.header("x-auth-token"), secret);
-    console.log(decode);
-    next();
+    const  secret = process.env.JWT_SECRET;
+    const authHeader = req.header('Authorization')
+    console.log(authHeader,8)
+    const token = authHeader.split(" ")[1]
+    console.log()
+    jwt.verify(token, secret, (err, user) => {
+      req.user = user;
+      next();
+      console.log(req.user,45)
+    });
   } catch (e) {
     res.status(403).json({ message: "user is not authenticated" });
   }
@@ -31,6 +37,8 @@ const verifyTokenAndAdmin = (req, res, next) => {
     }
   });
 };
+
+
 
 module.exports = {
   verifyTokenAndAuthorization,

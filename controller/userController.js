@@ -10,8 +10,6 @@ const jwt = require("jsonwebtoken")
 
 
 
-
-
 exports.signup= async (req, res) => {
   //console.log(req.body)
   
