@@ -83,7 +83,7 @@ exports.OperationUserUpdate=catchAsyncErrors(async (req, res, next) => {
 
  }=req.body;
 
-  const {}
+  
   const query = { Date: `${Date}` };
   try{
     if(!query)
