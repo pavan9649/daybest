@@ -85,7 +85,8 @@ const OperationSchema = new Schema({
     },
    Flight_Details:[flightSchema],
    User_Id:{
-       type:Schema.ObjectId
+       type:Schema.ObjectId,
+       require: true
 
    },
     createdAt: {

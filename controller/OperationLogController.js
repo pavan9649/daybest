@@ -66,11 +66,37 @@ exports.OperationUserFind=catchAsyncErrors(async (req, res, next) => {
 
 exports.OperationUserUpdate=catchAsyncErrors(async (req, res, next) => {
   let Date=req.query.Date;
+  const{
+  
+     Crew_name,
+     Raider_Incharge_name,
+     Flight_Supervisor,
+     Pilot_name,
+     Crew_id,
+     Designation,
+     Flight_Supervisor_id,
+     Pilot_id,
+     Uin_DAN,
+     Mobile_Number,
+     Authorized_By,
+     
 
+ }=req.body;
+
+  const {}
   const query = { Date: `${Date}` };
   try{
-    const dab=await OperationLog.findOneAndUpdate(query, { $set: { Crew_name: 'jason bourne' }})
-    res.status(200).send(dab)
+    if(!query)
+    {
+      res.status(400).send({message:"please select date"})
+    }
+    else{
+      const dab=await OperationLog.findOneAndUpdate(query, { $set: { Crew_name: 'jason bourne' }})
+        res.status(200).send(dab)
+
+    }
+    
+  
   }catch(err) {
 
   }
