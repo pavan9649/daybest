@@ -43,7 +43,6 @@ const OperationSchema = new Schema({
     Date:{
         type: String,
         require: true,
-        unique: true
     },
     Crew_name:{
         type: String,
