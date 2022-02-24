@@ -65,7 +65,9 @@ exports.OperationUserFind=catchAsyncErrors(async (req, res, next) => {
 })
 
 exports.OperationUserUpdate=catchAsyncErrors(async (req, res, next) => {
-  let Date=req.query.Date;
+  const Date=req.query.Date;
+  const User_Id=req.body.User_Id;
+
   const{
   
      Crew_name,
@@ -84,20 +86,23 @@ exports.OperationUserUpdate=catchAsyncErrors(async (req, res, next) => {
  }=req.body;
 
   
-  const query = { Date: `${Date}` };
+  const query = { Date: `${Date}`,User_Id:`${User_Id}`};
   try{
     if(!query)
     {
       res.status(400).send({message:"please select date"})
     }
     else{
-      const dab=await OperationLog.findOneAndUpdate(query, { $set: { Crew_name: 'jason bourne' }})
-        res.status(200).send(dab)
+      const dab=await OperationLog.updateOne(query, { $set: { Crew_name: `${Crew_name}`,Raider_Incharge_name:`${Raider_Incharge_name}`,Flight_Supervisor:`${Flight_Supervisor}`,Pilot_name:`${Pilot_name}`,Crew_id:`${  Crew_id}`,Designation:`${Designation}`,Flight_Supervisor_id:`${Flight_Supervisor_id}`,  Pilot_id:`${Pilot_id}`,Uin_DAN:`${Uin_DAN}`}, Mobile_Number:`${ Mobile_Number}`,Authorized_By:`${Authorized_By}`})
+
+        res.status(200).send({message:"update successfully done"})
 
     }
     
   
   }catch(err) {
+    res.status(500).send({message:"server problem"})
+    console.log(err)
 
   }
   
