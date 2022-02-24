@@ -90,6 +90,12 @@ process.on("uncaughtException", (err) => {
     process.exit(1);
   });
 
+   if(process.env.NODE_ENV="production")
+   {
+     app.use(express.static("client/build"))
+
+   }
+
   const server=app.listen(port, () => {
     console.log(`Server is working on http://localhost:${port}`);
   });
