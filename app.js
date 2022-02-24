@@ -26,10 +26,6 @@ app.use("/user", user);
 app.use("/operation_Log",OperationLog);
 app.use("/dashboard",dashboard);
 
-app.get("/",(req,res)=>{
-  res.status(200).send({message:"all is well"});
-})
-
 /*app.get('/login', (req,res) => {
   if (req.query.phonenumber) {
      client
