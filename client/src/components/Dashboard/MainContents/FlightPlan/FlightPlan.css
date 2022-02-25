@@ -23,11 +23,7 @@
     margin-bottom: 8px;
 }
 .fp-cd-flex > b{
-    width: 220px;
-}
-
-.fp-cd-flex > span > input{
-   outline: none;
+    width: 180px;
 }
 .mydate{
     position: absolute;
@@ -140,7 +136,7 @@ div.mydate > button {
     outline: none;
 }
 
-span > input {
-    width: 80%;
+span > input[type="text"] {
+    width: 90%;
     border: none;
 }

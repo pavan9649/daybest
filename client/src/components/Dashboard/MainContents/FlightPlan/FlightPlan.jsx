@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import "./FlightPlan.css"
 import { Link } from 'react-router-dom'
 
@@ -7,6 +7,8 @@ import calendar from "../../../images/Calendar.png"
 import edit from "../../../images/Edit.png"
 import add from "../../../images/Add.png"
 import axios from 'axios'
+import { ReadOnlyRow } from './Comp/ReadOnlyRow'
+import { EditableRow } from './Comp/EditableRow'
 
 
 export const FlightPlan = () => {
@@ -26,6 +28,12 @@ export const FlightPlan = () => {
     const [uin, setUin] = useState("")
     const [mobile, setMobile] = useState("")
     const [authBy, setauthBy] = useState("")
+
+    const [dataEdit, setDataEdit] = useState(false)
+
+    const editData = () => {
+        setDataEdit(true)
+    }
 
 
     const options = {
@@ -70,7 +78,7 @@ export const FlightPlan = () => {
                     <h4 className='fp-heading'>Operation Log for Bihar Excise</h4>
                 </div>
                 <div className='my-flex'>
-                    <button className='my-flex'>
+                    <button className='my-flex' onClick={editData}>
                         <img className='editimg' src={edit} alt="" />
                         <p>Edit Detail</p>
                     </button>
@@ -80,62 +88,47 @@ export const FlightPlan = () => {
                     </Link>
                 </div>
             </div>
-
             <div className="fp-crewdata row">
-                <div className="col-md-4 first">
-                    <div className='fp-cd-flex mydate'>
-                        <input type="date" data-date-inline-picker="true" name="myDate" onChange={onChange} />
-                        <button type='submit' onClick={submitDate}><img className='calendarimg' src={calendar} alt="calendar" /></button>
-                    </div>
-                    <div className='fp-cd-flex'>
-                        <b>Crew Name</b>
-                        <span>: <input type="text" value={crewName} /></span>
-                    </div>
-                    <div className='fp-cd-flex'>
-                        <b>Raider In-charge Name </b>
-                        <span>: <input type="text" value={rIncharge} /></span>
-                    </div>
-                    <div className='fp-cd-flex'>
-                        <b>Flight Supervisor</b>
-                        <span>: <input type="text" value={fsuper} /></span>
-                    </div>
+                <div className='fp-cd-flex mydate'>
+                    <input type="date" data-date-inline-picker="true" name="myDate" onChange={onChange} />
+                    <button type='submit' onClick={submitDate}><img className='calendarimg' src={calendar} alt="calendar" /></button>
                 </div>
-                <div className="col-md-4">
-                    <div className='fp-cd-flex'>
-                        <b>Pilot Name</b>
-                        <span>: <input type="text" value={pilotName} /></span>
-                    </div>
-                    <div className='fp-cd-flex'>
-                        <b>Crew ID</b>
-                        <span>: <input type="text" value={crewId} /></span>
-                    </div>
-                    <div className='fp-cd-flex'>
-                        <b>Designation</b>
-                        <span>: <input type="text" value={dest} /></span>
-                    </div>
-                    <div className='fp-cd-flex'>
-                        <b>Flight Supervisor ID</b>
-                        <span>: <input type="text" value={fSuperId} /></span>
-                    </div>
-                </div>
-                <div className="col-md-4">
-                    <div className='fp-cd-flex'>
-                        <b>Pilot ID</b>
-                        <span>: <input type="text" value={pilotId} /></span>
-                    </div>
-                    <div className='fp-cd-flex'>
-                        <b>UIN/DAN</b>
-                        <span>: <input type="text" value={uin} /></span>
-                    </div>
-                    <div className='fp-cd-flex'>
-                        <b>Mobile</b>
-                        <span>: <input type="text" value={mobile} /></span>
-                    </div>
-                    <div className='fp-cd-flex'>
-                        <b>Authorized by</b>
-                        <span>: <input type="text" value={authBy} /></span>
-                    </div>
-                </div>
+
+
+                <Fragment>
+                    {
+                        dataEdit ?
+                            <EditableRow
+                                date ={date}
+                                crewName={crewName}
+                                rIncharge={rIncharge}
+                                fsuper={fsuper}
+                                pilotName={pilotName}
+                                crewId={crewId}
+                                dest={dest}
+                                fSuperId={fSuperId}
+                                pilotId={pilotId}
+                                uin={uin}
+                                mobile={mobile}
+                                authBy={authBy} />
+
+                            : <ReadOnlyRow
+                                crewName={crewName}
+                                rIncharge={rIncharge}
+                                fsuper={fsuper}
+                                pilotName={pilotName}
+                                crewId={crewId}
+                                dest={dest}
+                                fSuperId={fSuperId}
+                                pilotId={pilotId}
+                                uin={uin}
+                                mobile={mobile}
+                                authBy={authBy}
+                            />
+                    }
+
+
+                </Fragment>
 
             </div>
 
