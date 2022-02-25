@@ -37,7 +37,7 @@ function App() {
         <Route element={<WithoutNav />}>
           <Route path='/login' element={<Login />} />
           <Route path='/forgotpassword' element={<ForgotPassword />} />
-          <Route path='/password/reset/:token' element={<NewPassword />} />
+          <Route path='/changePassword/:token' element={<NewPassword />} />
         </Route>
 
         <Route element={<Dashboard />}>
