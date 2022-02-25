@@ -20,6 +20,7 @@ export const EditableRow = (props) => {
         authBy: String(props.authBy)
     })
 
+
     const inputEvent = (event) => {
         const { value, name } = event.target;
 
@@ -31,9 +32,10 @@ export const EditableRow = (props) => {
         })
     }
 
+    const [saveBtn, setSaveBtn] = useState(false)
+   
     const onSubmit = (event) => {
         event.preventDefault();
-    
         axios.put(`/operation_Log/Update_Details/?Date=${props.date}`,
           {
             User_Id: localStorage.getItem("User_Id"),
@@ -51,14 +53,18 @@ export const EditableRow = (props) => {
           }, options
         ).then((response) => {
           console.log(response.data)
-          alert("Form Submitted");
+          setSaveBtn(!saveBtn)
+          props.editData2();
+          props.submitDate();
+          alert("Details Updated");
+        }).catch(err => {
+            console.log(err)
         })
       }
 
-
     return (
         <>
-            <form onSubmit={onSubmit}>
+            <form>
                 <div className="row">
                     <div className="col-md-4 first">
                         <div className='fp-cd-flex'>
@@ -111,8 +117,9 @@ export const EditableRow = (props) => {
                         </div>
                     </div>
                 </div>
-                <button className="btn btn-success" type='submit'>Save</button>
+                {!saveBtn && <button className="btn btn-success" type='submit' onClick={onSubmit}>Save</button>}
             </form>
+            
         </>
     )
 }

@@ -14,9 +14,7 @@ import { EditableRow } from './Comp/EditableRow'
 export const FlightPlan = () => {
 
     const [date, setDate] = useState()
-
     const [allDetails, setAllDetails] = useState();
-
     const [crewName, setCrewName] = useState("")
     const [rIncharge, setRIncharge] = useState("")
     const [fsuper, setFsuper] = useState("")
@@ -35,6 +33,9 @@ export const FlightPlan = () => {
         setDataEdit(true)
     }
 
+    const editData2 = () => {
+        setDataEdit(!dataEdit)
+    }
 
     const options = {
         headers: { "Content-Type": "application/json", 'x-auth-token': localStorage.getItem("token") }
@@ -110,7 +111,10 @@ export const FlightPlan = () => {
                                 pilotId={pilotId}
                                 uin={uin}
                                 mobile={mobile}
-                                authBy={authBy} />
+                                authBy={authBy}
+                                editData2 = {editData2} 
+                                submitDate={submitDate}
+                                />
 
                             : <ReadOnlyRow
                                 crewName={crewName}
