@@ -40,7 +40,7 @@ const UserSchema = new Schema({
 
   UserSchema.methods.getJWTToken = function () {
     return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRE,
+      exp: Math.floor(Date.now() / 1000) + 40
     });
   };
  
