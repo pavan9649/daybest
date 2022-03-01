@@ -2,52 +2,51 @@ const {OperationLog}=require("../models/Operation_Log");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ErrorHander= require("../utils/errorhandler")
 
+const { uploadFile, getFileStream }=require("../s3");
+
+
 exports.OperationUser=catchAsyncErrors(async (req, res) => {
-
    const{
-      User_Id, 
-       Date,
-       Crew_name,
-       Raider_Incharge_name,
-       Flight_Supervisor,
-       Pilot_name,
-       Crew_id,
-       Designation,
-       Flight_Supervisor_id,
-       Pilot_id,
-       Uin_DAN,
+      User_Id,Date,Crew_name,Raider_Incharge_name,Flight_Supervisor, Pilot_name,Crew_id, Designation,Flight_Supervisor_id,Pilot_id,Uin_DAN,
        Mobile_Number,
        Authorized_By,
-       Flight_Details,
+      }=req.body;
 
-       
+   /*const uploadSingle = uploadFile().single(
+    "images"
 
-   }=req.body;
+  );
 
-   const operation_Log = await OperationLog.create({
-       User_Id,  
-       Date,
-       Crew_name,
-       Raider_Incharge_name,
-       Flight_Supervisor,
-       Pilot_name,
-       Crew_id,
-       Designation,
-       Flight_Supervisor_id,
-       Pilot_id,
-       Uin_DAN,
-       Mobile_Number,
-       Authorized_By,
-       Flight_Details,
-       
-  });
+  uploadSingle(req, res, async (err) => {
+    if (err)
+      return res.status(400).json({ success: false, message: err.message });
+      const Image=req.file.location;
+      ;*/
+      const operation_Log = await OperationLog.create({
+        User_Id,  
+        Date,
+        Crew_name,
+        Raider_Incharge_name,
+        Flight_Supervisor,
+        Pilot_name,
+        Crew_id,
+        Designation,
+        Flight_Supervisor_id,
+        Pilot_id,
+        Uin_DAN,
+        Mobile_Number,
+        Authorized_By,
+        Flight_Details,
+     
+   })
+  console.log(operation_Log,78);
   if (!operation_Log) return res.status(400).send({message:"the operation user cannot be created!"});
   res.status(201).json({
     success: true,
     operation_Log,
   });
-  
-})
+  });
+
 
 exports.OperationUserFind=catchAsyncErrors(async (req, res, next) => {
   let date=req.body.Date;

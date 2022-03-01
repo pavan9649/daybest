@@ -5,37 +5,41 @@ const Schema = mongoose.Schema;
 const flightSchema= new Schema({
     Flight_Log_NO:{
         type: String,
-        require: true
+        
     },
     Drone_Id:{
         type: String,
-        require: true
+       
     },
     Payload_Type:{
         type: String,
-        require: true
+        
     },
     Take_Off_site:{
         type: String,
     },
     Operation_Start_Time:{
         type: String,
-        require: true
+        
     },
     Operation_End_Time:{
         type: String,
-        require: true
+        
     },
     Distance_Covered:{
         type: String,
-        require: true
+       
     },
     Duration:{
         type: String,
     },
     Remarks:{
         type: String,
+    },
+    Image:{
+        type: String,
     }
+    
 
 })
 
