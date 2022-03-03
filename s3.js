@@ -42,11 +42,11 @@ const uploadFile = () =>
         "Content-Length": req.file.size,
       };
       s3.upload(params, (error, data) => {
-        console.log(data, error);
+        //console.log(data, error);
         if (error) {
           res.status(500).json(error);
         } else {
-          console.log(data);
+          //console.log(data);
           req.body.image = data.Location;
           req.body.pic_name = data.Key;
   
@@ -88,7 +88,7 @@ const uploadFile = () =>
   async function awsMultipartUpload(req, res, next) {
     let s3_links = [];
     let chunkSize = 5 * 1024 * 1024;
-    console.log(req.files ,"hello ile")
+    //console.log(req.files ,"hello ile")
     for (let i = 0; req.files && i < req.files.length; i++) {
       let numberOfChunks = Math.floor(req.files[i].size / chunkSize) + 1;
       let Parts = [];
@@ -124,7 +124,7 @@ const uploadFile = () =>
           unlink(`${req.files[i].path}`, (err) => {
             console.log(err);
           });
-        console.log(uploaded)  
+       // console.log(uploaded)  
         s3_links.push(uploaded.Location);
         req.body.pic_name=uploaded.Key
       } catch (error) {
@@ -143,7 +143,7 @@ const uploadFile = () =>
     } else if (s3_links.length) {
       req.body.links = s3_links;
     }
-    console.log(req.body);
+    //console.log(req.body);
     next();
   }
   exports.awsMultipartUpload= awsMultipartUpload;

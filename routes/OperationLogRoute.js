@@ -24,7 +24,8 @@ router.get("/images/:key", (req, res) => {
 
 router.post(
   "/Add_Details",
-   upload,
+
+  upload,
   awsMultipartUpload,
   async (req, res, next) => {
     const {
@@ -41,11 +42,14 @@ router.post(
       Uin_DAN,
       Mobile_Number,
       Authorized_By,
-      Flight_Details
+    
       
     } = req.body
-
-   for(let i=0;i<Flight_Details.length;i++)
+    let Flight_Details=req.body.Flight_Details
+    //console.log(req.body.Flight_Details,88)
+  console.log(JSON.parse(Flight_Details));
+  Flight_Details = JSON.parse((Flight_Details));
+  for(let i=0;i<Flight_Details.length;i++)
    {
      Flight_Details[i].Image=req.body.links[i];
    }

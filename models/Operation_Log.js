@@ -54,14 +54,13 @@ const OperationSchema = new Schema({
     },
     Raider_Incharge_name:{
         type: String,
-        require: true
     },
     Flight_Supervisor:{
         type: String,
     },
     Pilot_name:{
         type: String,
-        require: true
+       
     },
     Crew_id:{
         type:String,
@@ -81,7 +80,7 @@ const OperationSchema = new Schema({
     },
     Mobile_Number:{
         type:String,
-        require: true
+        
     },
     Authorized_By:{
         type:String,
@@ -89,7 +88,7 @@ const OperationSchema = new Schema({
    Flight_Details:[flightSchema],
    User_Id:{
        type:Schema.ObjectId,
-       require: true
+       
 
    },
     createdAt: {
