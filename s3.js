@@ -4,10 +4,10 @@ const multer = require("multer");
 const multerS3 = require("multer-s3");
 let { createReadStream, readFileSync, unlink } = require("fs");
 const uuid = require("uuid").v4;
-const bucketName="day-best";
-const regin="US East (Ohio) us-east-2";
-const accessKeyId="AKIASF6B7XV4I2CXTZNQ"
-const secretKey="19VhCtyUAfKjI/eJvbIN01kvjeOI0Om2bcads0D;"
+const bucketName=process.env.AWS_BUCKET_NAME,
+const regin=process.env.REGIN
+const accessKeyId=process.env.ACCESS_KEY_ID
+const secretKey=process.env.SECRET_ACCESS_KEY
 
 const s3=new S3({
     regin,
@@ -19,7 +19,7 @@ const uploadFile = () =>
   multer({
     storage: multerS3({
       s3,
-      bucket: bucketName,
+      bucket: process.env.AWS_BUCKET_NAME,
       metadata: function (req, file, cb) {
         cb(null, { fieldName: file.fieldname });
       },
@@ -95,7 +95,7 @@ const uploadFile = () =>
       let fileType = req.files[i].originalname.split(".");
       fileType = fileType[fileType.length - 1];
       let buffer = readFileSync(req.files[i].path);
-      let params = { Bucket: bucketName, Key: `${uuid()}.${fileType}` };
+      let params = { Bucket: process.env.AWS_BUCKET_NAME, Key: `${uuid()}.${fileType}` };
       //  returns promise so we need to wait til its resolved or rejected
       let initiateUpload = await s3.createMultipartUpload(params).promise();
       let Body;

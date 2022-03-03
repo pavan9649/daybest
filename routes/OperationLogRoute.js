@@ -24,8 +24,8 @@ router.get("/images/:key", (req, res) => {
 
 router.post(
   "/Add_Details",
-
   upload,
+  awsMultipartUpload,
   async (req, res, next) => {
     const {
       User_Id,
