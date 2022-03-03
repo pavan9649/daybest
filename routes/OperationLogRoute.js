@@ -26,7 +26,6 @@ router.post(
   "/Add_Details",
 
   upload,
-  awsMultipartUpload,
   async (req, res, next) => {
     const {
       User_Id,
@@ -49,10 +48,10 @@ router.post(
     //console.log(req.body.Flight_Details,88)
   console.log(JSON.parse(Flight_Details));
   Flight_Details = JSON.parse((Flight_Details));
-  for(let i=0;i<Flight_Details.length;i++)
+  /*for(let i=0;i<Flight_Details.length;i++)
    {
      Flight_Details[i].Image=req.body.links[i];
-   }
+   }*/
     const operation_Log = await OperationLog.create({
       User_Id,
       Date,
