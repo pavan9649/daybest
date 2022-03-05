@@ -13,7 +13,7 @@ export const ReadOnlyRow = (props) => {
                     <b>Crew Name</b>
                     <span>: {props.crewName}</span>
                 </div>
-                <div className='fp-cd-flex'>
+                <div className='fp-cd-flex'>no
                     <b>Raider In-charge Name </b>
                     <span>: {props.rIncharge}</span>
                 </div>
