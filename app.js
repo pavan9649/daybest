@@ -27,11 +27,6 @@ app.use("/operation_Log",OperationLog);
 app.use("/dashboard",dashboard);
 
 
-process.on("uncaughtException", (err) => {
-    console.log(`Error: ${err.message}`);
-    console.log(`Shutting down the server due to Uncaught Exception`);
-    process.exit(1);
-  });
 
    if(process.env.NODE_ENV="production")
    {
@@ -46,14 +41,9 @@ process.on("uncaughtException", (err) => {
     console.log(`Server is working on http://localhost:${port}`);
   });
 
-  process.on("unhandledRejection", (err) => {
-    console.log(`Error: ${err.message}`);
-    console.log(`Shutting down the server due to Unhandled Promise Rejection`);
   
-    server.close(() => {
-      process.exit(1);
-    });
-  });
+  
+    
 
   
 module.exports = app;

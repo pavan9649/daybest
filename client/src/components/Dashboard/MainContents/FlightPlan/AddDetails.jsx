@@ -4,7 +4,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 const options = {
-  headers: { "Content-Type": "multipart/form-data", 'x-auth-token': localStorage.getItem("token") }
+  headers: { "Content-Type": "application/json", 'x-auth-token': localStorage.getItem("token") }
 }
 
 export const AddDetails = () => {
@@ -46,7 +46,7 @@ export const AddDetails = () => {
 
   const [data, setData] = useState({
     date: "",
-     district: "",
+     District: "",
     crewName: "",
     rIncharge: "",
     fSupervisor: "",
@@ -74,37 +74,31 @@ export const AddDetails = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    const formdata = new FormData();
-    /*for (let i = 0 ; i < images.length ; i++) {
-      formdata.append("files", images[i]);
-    }*/
-    formdata.append('User_Id', localStorage.getItem("User_Id"))
-    formdata.append('Date', data.date)
-    formdata.append('Crew_name', data.crewName)
-    formdata.append('Raider_Incharge_name', data.rIncharge)
-    formdata.append('Flight_Supervisor', data.fSupervisor)
-    formdata.append('Pilot_name', data.pilotName)
-    formdata.append('Crew_id', data.crewID)
-    formdata.append('Designation', data.destination)
-    formdata.append('Flight_Supervisor_id', data.fSuperID)
-    formdata.append('Pilot_id', data.pilotID)
-    formdata.append('Uin_DAN', data.uin)
-    formdata.append('Mobile_Number', data.mobileNum)
-    formdata.append('Authorized_By', data.authBy)
-    formdata.append('Flight_Details', JSON.stringify(users));
+    
     axios.post("/operation_Log/Add_Details",
-      formdata,
       {
-        Flight_Details:"users"
-
-      },
-       options
+        User_Id: localStorage.getItem("User_Id"),
+        Date: data.date,
+        District:data.District,
+        Crew_name: data.crewName,
+        Raider_Incharge_name: data.rIncharge,
+        Flight_Supervisor: data.fSupervisor,
+        Pilot_name: data.pilotName,
+        Crew_id: data.crewID,
+        Designation: data.destination,
+        Flight_Supervisor_id: data.fSuperID,
+        Pilot_id: data.pilotID,
+        Uin_DAN: data.uin,
+        Mobile_Number: data.mobileNum,
+        Authorized_By: data.authBy,
+        Flight_Details: users
+      }, options
     ).then((response) => {
       console.log(response.data)
-      console.log(formdata)
       alert("Form Submitted");
     })
   }
+  
 
 
   return (
@@ -134,7 +128,7 @@ export const AddDetails = () => {
                   placeholder='District'
                   className='adetail-input'
                   name="district"
-                  value={data.district}
+                  value={data.District}
                   onChange={inputEvent}
                   required
                 />

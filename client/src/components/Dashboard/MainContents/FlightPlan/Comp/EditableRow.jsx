@@ -40,7 +40,7 @@ export const EditableRow = (props) => {
         axios.put(`/operation_Log/Update_Details/?Date=${props.date}`,
           {
             User_Id: localStorage.getItem("User_Id"),
-            District: editableRow.district,
+            District: editableRow.District,
             Crew_name: editableRow.crewName,
             Raider_Incharge_name: editableRow.rIncharge,
             Flight_Supervisor: editableRow.fsuper,
