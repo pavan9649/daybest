@@ -71,7 +71,7 @@ export const EditableRow = (props) => {
                     <div className="col-md-4 first">
                         <div className='fp-cd-flex'>
                             <b>District</b>
-                            <span>: <input type="text" name='crewName' value={editableRow.district} onChange={inputEvent} placeholder='Enter Text' required /></span>
+                            <span>: <input type="text" name='District' value={editableRow.District} onChange={inputEvent} placeholder='Enter Text' required /></span>
                         </div>
                         <div className='fp-cd-flex'>
                             <b>Crew Name</b>
