@@ -68,13 +68,11 @@ exports.OperationUserUpdate=catchAsyncErrors(async (req, res, next) => {
   const User_Id=req.body.User_Id;
 
   const{
-   
-     Crew_name,
+
      District,
+     Crew_name,
      Raider_Incharge_name,
      Flight_Supervisor,
-
-
      Pilot_name,
      Crew_id,
      Designation,

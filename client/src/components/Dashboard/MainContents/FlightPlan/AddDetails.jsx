@@ -127,7 +127,7 @@ export const AddDetails = () => {
                   type="text"
                   placeholder='District'
                   className='adetail-input'
-                  name="district"
+                  name="District"
                   value={data.District}
                   onChange={inputEvent}
                   required
