@@ -48,6 +48,10 @@ const OperationSchema = new Schema({
         type: String,
         require: true,
     },
+    District:{
+        type:String,
+        require:true
+    },
     Crew_name:{
         type: String,
 

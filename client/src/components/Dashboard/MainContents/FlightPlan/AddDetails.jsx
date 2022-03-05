@@ -9,7 +9,7 @@ const options = {
 
 export const AddDetails = () => {
 
-  const [images,setImages] = useState([]);
+  // const [images,setImages] = useState([]);
 
   const userTemplate = {
     Flight_Log_NO: "",
@@ -39,13 +39,14 @@ export const AddDetails = () => {
     setUsers(updatedUsers);
   }
 
-  const imageHandler = (e) => {
+  /*const imageHandler = (e) => {
     console.log(e.target.files[0]);
     setImages(e.target.files[0])
-  }
+  }*/
 
   const [data, setData] = useState({
     date: "",
+     district: "",
     crewName: "",
     rIncharge: "",
     fSupervisor: "",
@@ -70,11 +71,13 @@ export const AddDetails = () => {
     })
   }
 
-  
+
   const onSubmit = (event) => {
     event.preventDefault();
     const formdata = new FormData();
-    formdata.append('files', images)
+    /*for (let i = 0 ; i < images.length ; i++) {
+      formdata.append("files", images[i]);
+    }*/
     formdata.append('User_Id', localStorage.getItem("User_Id"))
     formdata.append('Date', data.date)
     formdata.append('Crew_name', data.crewName)
@@ -98,6 +101,7 @@ export const AddDetails = () => {
        options
     ).then((response) => {
       console.log(response.data)
+      console.log(formdata)
       alert("Form Submitted");
     })
   }
@@ -122,6 +126,15 @@ export const AddDetails = () => {
                   className='adetail-input'
                   name="date"
                   value={data.date}
+                  onChange={inputEvent}
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder='District'
+                  className='adetail-input'
+                  name="district"
+                  value={data.district}
                   onChange={inputEvent}
                   required
                 />
@@ -257,7 +270,7 @@ export const AddDetails = () => {
                   <th>Distance Covered</th>
                   <th>Duration </th>
                   <th>Remarks</th>
-                  <th className='end'>Attach File</th>
+                  {/* <th className='end'>Attach File</th> */}
                 </tr>
               </thead>
               <tbody>
@@ -273,7 +286,7 @@ export const AddDetails = () => {
                       <td><input className='tab-inp' type="text" name='Distance_Covered' onChange={e => onChange(e, index)} required /></td>
                       <td><input className='tab-inp' type="text" name='Duration' onChange={e => onChange(e, index)} required /></td>
                       <td><input className='tab-inp' type="text" name='Remarks' onChange={e => onChange(e, index)} required /></td>
-                      <td><input className='tab-inp' type="file" name='Files' onChange={imageHandler} required /></td>
+                      {/* <td><input className='tab-inp' type="file" name='Files' onChange={imageHandler} required multiple/></td> */}
                     </tr>
                   ))
                 }

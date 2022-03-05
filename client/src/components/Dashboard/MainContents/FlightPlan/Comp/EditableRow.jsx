@@ -39,6 +39,7 @@ export const EditableRow = (props) => {
         axios.put(`/operation_Log/Update_Details/?Date=${props.date}`,
           {
             User_Id: localStorage.getItem("User_Id"),
+            District: editableRow.district,
             Crew_name: editableRow.crewName,
             Raider_Incharge_name: editableRow.rIncharge,
             Flight_Supervisor: editableRow.fsuper,
@@ -68,6 +69,10 @@ export const EditableRow = (props) => {
                 <div className="row">
                     <div className="col-md-4 first">
                         <div className='fp-cd-flex'>
+                            <b>District</b>
+                            <span>: <input type="text" name='crewName' value={editableRow.district} onChange={inputEvent} placeholder='Enter Text' required /></span>
+                        </div>
+                        <div className='fp-cd-flex'>
                             <b>Crew Name</b>
                             <span>: <input type="text" name='crewName' value={editableRow.crewName} onChange={inputEvent} placeholder='Enter Text' required /></span>
                         </div>
@@ -80,7 +85,7 @@ export const EditableRow = (props) => {
                             <span>: <input type="text" name='fsuper' value={editableRow.fsuper} onChange={inputEvent} placeholder='Enter Text' required /></span>
                         </div>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-md-4 first">
                         <div className='fp-cd-flex'>
                             <b>Pilot Name</b>
                             <span>: <input type="text" name='pilotName' value={editableRow.pilotName} onChange={inputEvent} placeholder='Enter Text' required /></span>
@@ -98,7 +103,7 @@ export const EditableRow = (props) => {
                             <span>: <input type="text" name='fSuperId' value={editableRow.fSuperId} onChange={inputEvent} placeholder='Enter Text' required /></span>
                         </div>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-md-4 first">
                         <div className='fp-cd-flex'>
                             <b>Pilot ID</b>
                             <span>: <input type="text" name='pilotId' value={editableRow.pilotId} onChange={inputEvent} placeholder='Enter Text' required /></span>

@@ -84,7 +84,7 @@ const s3=new S3({
   async function awsMultipartUpload(req, res, next) {
     let s3_links = [];
     let chunkSize = 5 * 1024 * 1024;
-    console.log(req.files ,"hello ile")
+    console.log(req.files.length ,"hello ile")
     for (let i = 0; req.files && i < req.files.length; i++) {
       let numberOfChunks = Math.floor(req.files[i].size / chunkSize) + 1;
       let Parts = [];

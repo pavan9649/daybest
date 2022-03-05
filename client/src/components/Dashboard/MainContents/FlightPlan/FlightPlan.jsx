@@ -15,7 +15,7 @@ export const FlightPlan = () => {
     const [date, setDate] = useState()
     const [allDetails, setAllDetails] = useState();
 
-
+    const [District, setDistrict] = useState("")
     const [crewName, setCrewName] = useState("")
     const [rIncharge, setRIncharge] = useState("")
     const [fsuper, setFsuper] = useState("")
@@ -53,6 +53,7 @@ export const FlightPlan = () => {
         }, options)
             .then((response) => {
                 setAllDetails(response.data)
+                setDistrict(response.data.District)
                 setCrewName(response.data.Crew_name)
                 setRIncharge(response.data.Raider_Incharge_name)
                 setFsuper(response.data.Flight_Supervisor)
@@ -103,6 +104,7 @@ export const FlightPlan = () => {
                         dataEdit ?
                             <EditableRow
                                 date ={date}
+                                District={District}
                                 crewName={crewName}
                                 rIncharge={rIncharge}
                                 fsuper={fsuper}
@@ -119,6 +121,7 @@ export const FlightPlan = () => {
                                 />
 
                             : <ReadOnlyRow
+                                District={District}
                                 crewName={crewName}
                                 rIncharge={rIncharge}
                                 fsuper={fsuper}
@@ -151,7 +154,7 @@ export const FlightPlan = () => {
                             <th>Distance Covered</th>
                             <th>Duration </th>
                             <th>Remarks</th>
-                            <th className='end'>Attached File</th>
+                            {/* <th className='end'>Attached File</th> */}
                         </tr>
                     </thead>
                     {allDetails &&
@@ -169,7 +172,7 @@ export const FlightPlan = () => {
                                             <td>{val.Distance_Covered} </td>
                                             <td>{val.Duration} </td>
                                             <td>{val.Remarks} </td>
-                                            <td id="img"><a href={val.Image} >Click here</a></td>
+                                            {/* <td id="img"><a href={val.Image} >Click here</a></td> */}
                                         </tr>
                                     )
                                 })

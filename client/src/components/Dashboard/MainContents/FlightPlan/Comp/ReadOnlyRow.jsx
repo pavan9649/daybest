@@ -6,6 +6,10 @@ export const ReadOnlyRow = (props) => {
         <>
             <div className="col-md-4 first">
                 <div className='fp-cd-flex'>
+                    <b>District</b>
+                    <span>: {props.district}</span>
+                </div>
+                <div className='fp-cd-flex'>
                     <b>Crew Name</b>
                     <span>: {props.crewName}</span>
                 </div>
@@ -18,7 +22,7 @@ export const ReadOnlyRow = (props) => {
                     <span>: {props.fsuper}</span>
                 </div>
             </div>
-            <div className="col-md-4">
+            <div className="col-md-4 first">
                 <div className='fp-cd-flex'>
                     <b>Pilot Name</b>
                     <span>: {props.pilotName}</span>
@@ -36,7 +40,7 @@ export const ReadOnlyRow = (props) => {
                     <span>: {props.fSuperId}</span>
                 </div>
             </div>
-            <div className="col-md-4">
+            <div className="col-md-4 first">
                 <div className='fp-cd-flex'>
                     <b>Pilot ID</b>
                     <span>: {props.pilotId}</span>
