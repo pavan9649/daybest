@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 //const upload = multer({ dest: "uploads/" });
-const { awsUpload, getFileStream,awsMultipartUpload } = require("../s3");
+const { awsMultipartUpload } = require("../s3");
 const fs = require("fs");
 const { OperationLog } = require("../models/Operation_Log");
 const upload = multer({ dest: "upload/" }).array("files", 3);
@@ -14,13 +14,7 @@ const {
   verifyTokenAndAdmin,
 } = require("../middleware/middle");
 
-router.get("/images/:key", (req, res) => {
-  console.log(req.params);
-  const key = req.params.key;
-  const readStream = getFileStream(key);
 
-  readStream.pipe(res);
-});
 
 router.post(
   "/Add_Details",
@@ -46,12 +40,15 @@ router.post(
     } = req.body
     let Flight_Details=req.body.Flight_Details
     //console.log(req.body.Flight_Details,88)
-  console.log(JSON.parse(Flight_Details));
+  //console.log(JSON.parse(Flight_Details));
   Flight_Details = JSON.parse((Flight_Details));
-  /*for(let i=0;i<Flight_Details.length;i++)
+   console.log(Flight_Details.length);
+   console.log(req.body.links)
+   
+  for(let i=0;i<Flight_Details.length;i++)
    {
      Flight_Details[i].Image=req.body.links[i];
-   }*/
+   }
     const operation_Log = await OperationLog.create({
       User_Id,
       Date,

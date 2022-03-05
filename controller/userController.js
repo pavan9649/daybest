@@ -89,7 +89,7 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
 
   await user.save();
 
-  const resetPasswordUrl = `https://day-best.herokuapp.com/changePassword/${resetToken}`;
+  const resetPasswordUrl = `http://localhost:4000/password/reset/${resetToken}`;
 
   const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
 

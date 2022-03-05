@@ -2,7 +2,7 @@ const {OperationLog}=require("../models/Operation_Log");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ErrorHander= require("../utils/errorhandler")
 
-const { uploadFile, getFileStream }=require("../s3");
+
 
 
 exports.OperationUser=catchAsyncErrors(async (req, res) => {
@@ -72,6 +72,8 @@ exports.OperationUserUpdate=catchAsyncErrors(async (req, res, next) => {
      Crew_name,
      Raider_Incharge_name,
      Flight_Supervisor,
+
+
      Pilot_name,
      Crew_id,
      Designation,
