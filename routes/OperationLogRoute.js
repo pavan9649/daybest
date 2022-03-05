@@ -37,10 +37,7 @@ router.post(
     
       
     } = req.body
-    let Flight_Details=req.body.Flight_Details
-    
-  Flight_Details = JSON.parse((Flight_Details));
-   
+    let Flight_Details=req.body.Flight_Details   
    
   /*for(let i=0;i<Flight_Details.length;i++)
    {
