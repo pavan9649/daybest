@@ -7,6 +7,7 @@ const options = {
 
 export const EditableRow = (props) => {
     const [editableRow, setEditableRow] = useState({
+        District:String(props.District),
         crewName: String(props.crewName),
         rIncharge: String(props.rIncharge),
         fsuper: String(props.fsuper),
