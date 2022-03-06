@@ -40,10 +40,9 @@ export const AddDetails = () => {
   }
 
   const imageHandler = (e) => {
-    for (let i = 0 ; i < images.length ; i++) {
-      setImages(e.target.files[i])
-      
-  }
+    
+   // console.log(e.target.files[0]);
+    setImages(e.target.files[0])
   }
 
   const [data, setData] = useState({
@@ -72,12 +71,14 @@ export const AddDetails = () => {
       }
     })
   }
-
-
   const onSubmit = (event) => {
     event.preventDefault();
     const formdata = new FormData();
-    formdata.append('files', images)
+    for(let i=0;i<images.length;i++)
+    {
+      formdata.append('files', images[i])
+    }
+    
     formdata.append('User_Id', localStorage.getItem("User_Id"))
     formdata.append('Date', data.date)
     formdata.append("District",data.District)
@@ -97,7 +98,7 @@ export const AddDetails = () => {
       formdata,
        options
     ).then((response) => {
-      console.log(response.data)
+      
       alert("Form Submitted");
     })
   }
