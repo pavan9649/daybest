@@ -9,7 +9,7 @@ const options = {
 
 export const AddDetails = () => {
 
-  // const [images,setImages] = useState([]);
+   const [images,setImages] = useState([]);
 
   const userTemplate = {
     Flight_Log_NO: "",
@@ -39,10 +39,10 @@ export const AddDetails = () => {
     setUsers(updatedUsers);
   }
 
-  /*const imageHandler = (e) => {
+  const imageHandler = (e) => {
     console.log(e.target.files[0]);
     setImages(e.target.files[0])
-  }*/
+  }
 
   const [data, setData] = useState({
     date: "",
@@ -74,25 +74,25 @@ export const AddDetails = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    
+    const formdata = new FormData();
+    formdata.append('files', images)
+    formdata.append('User_Id', localStorage.getItem("User_Id"))
+    formdata.append('Date', data.date)
+    formdata.append('Crew_name', data.crewName)
+    formdata.append('Raider_Incharge_name', data.rIncharge)
+    formdata.append('Flight_Supervisor', data.fSupervisor)
+    formdata.append('Pilot_name', data.pilotName)
+    formdata.append('Crew_id', data.crewID)
+    formdata.append('Designation', data.destination)
+    formdata.append('Flight_Supervisor_id', data.fSuperID)
+    formdata.append('Pilot_id', data.pilotID)
+    formdata.append('Uin_DAN', data.uin)
+    formdata.append('Mobile_Number', data.mobileNum)
+    formdata.append('Authorized_By', data.authBy)
+    formdata.append('Flight_Details', JSON.stringify(users));
     axios.post("/operation_Log/Add_Details",
-      {
-        User_Id: localStorage.getItem("User_Id"),
-        Date: data.date,
-        District:data.District,
-        Crew_name: data.crewName,
-        Raider_Incharge_name: data.rIncharge,
-        Flight_Supervisor: data.fSupervisor,
-        Pilot_name: data.pilotName,
-        Crew_id: data.crewID,
-        Designation: data.destination,
-        Flight_Supervisor_id: data.fSuperID,
-        Pilot_id: data.pilotID,
-        Uin_DAN: data.uin,
-        Mobile_Number: data.mobileNum,
-        Authorized_By: data.authBy,
-        Flight_Details: users
-      }, options
+      formdata,
+       options
     ).then((response) => {
       console.log(response.data)
       alert("Form Submitted");
@@ -264,7 +264,7 @@ export const AddDetails = () => {
                   <th>Distance Covered</th>
                   <th>Duration </th>
                   <th>Remarks</th>
-                  {/* <th className='end'>Attach File</th> */}
+                  { <th className='end'>Attach File</th>}
                 </tr>
               </thead>
               <tbody>
@@ -280,7 +280,7 @@ export const AddDetails = () => {
                       <td><input className='tab-inp' type="text" name='Distance_Covered' onChange={e => onChange(e, index)} required /></td>
                       <td><input className='tab-inp' type="text" name='Duration' onChange={e => onChange(e, index)} required /></td>
                       <td><input className='tab-inp' type="text" name='Remarks' onChange={e => onChange(e, index)} required /></td>
-                      {/* <td><input className='tab-inp' type="file" name='Files' onChange={imageHandler} required multiple/></td> */}
+                      { <td><input className='tab-inp' type="file" name='Files' onChange={imageHandler} required multiple/></td> }
                     </tr>
                   ))
                 }

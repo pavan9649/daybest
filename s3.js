@@ -4,10 +4,10 @@ const multer = require("multer");
 const multerS3 = require("multer-s3");
 let { createReadStream, readFileSync, unlink } = require("fs");
 const uuid = require("uuid").v4;
-const bucketName=process.env.AWS_BUCKET_NAME || "day-best"
-const regin=process.env.AWS_BUCKET_REGION || "US East (Ohio) us-east-2"
-const accessKeyId=process.env.ACCESS_KEY_ID || "AKIASF6B7XV4I2CXTZNQ"
-const secretKey=process.env.SECRET_ACCESS_KEY || "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"
+const bucketName=process.env.AWS_BUCKET_NAME 
+const regin=process.env.AWS_BUCKET_REGION
+const accessKeyId=process.env.ACCESS_KEY_ID
+const secretKey=process.env.SECRET_ACCESS_KEY
 
 const s3=new S3({
     regin,
@@ -15,7 +15,7 @@ const s3=new S3({
     secretKey
 })
 
-/*const uploadFile = () =>
+const uploadFile = () =>
   multer({
     storage: multerS3({
       s3,
@@ -57,8 +57,7 @@ const s3=new S3({
       next();
     }
   }
-  
-/*function uploadFile(file) {
+  function uploadFile(file) {
     const fileStream = fs.createReadStream(file.path)
   
     const uploadParams = {
@@ -68,7 +67,7 @@ const s3=new S3({
     }
   
     return s3.upload(uploadParams).promise()
-  }*/
+  }
     function getFileStream(fileKey) {
     const downloadParams = {
       Key: fileKey,

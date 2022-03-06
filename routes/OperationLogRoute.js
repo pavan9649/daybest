@@ -18,6 +18,8 @@ const {
 
 router.post(
   "/Add_Details",
+  upload,
+  awsMultipartUpload,
   async (req, res, next) => {
     const {
       User_Id,
@@ -37,12 +39,13 @@ router.post(
     
       
     } = req.body
-    let Flight_Details=req.body.Flight_Details   
+    let Flight_Details=req.body.Flight_Details 
+    Flight_Details=JSON.parse(Flight_Details); 
    
-  /*for(let i=0;i<Flight_Details.length;i++)
-   {
+   for(let i=0;i<Flight_Details.length;i++)
+ {
      Flight_Details[i].Image=req.body.links[i];
-   }*/
+    }
     const operation_Log = await OperationLog.create({
       User_Id,
       District,

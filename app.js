@@ -10,7 +10,7 @@ const path = require("path");
 const dotenv=require("dotenv");
 dotenv.config({ path: './config.env'})
 
-const client = require('twilio')(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN)
+//const client = require('twilio')(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN)
 require("./db/conn")
 app.use(express.json());
 app.use(cors());
@@ -42,8 +42,3 @@ app.use("/dashboard",dashboard);
   });
 
   
-  
-    
-
-  
-module.exports = app;
