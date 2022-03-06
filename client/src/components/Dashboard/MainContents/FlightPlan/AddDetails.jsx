@@ -40,8 +40,10 @@ export const AddDetails = () => {
   }
 
   const imageHandler = (e) => {
-    console.log(e.target.files[0]);
-    setImages(e.target.files[0])
+    for (let i = 0 ; i < images.length ; i++) {
+      setImages(e.target.files[i])
+      
+  }
   }
 
   const [data, setData] = useState({
