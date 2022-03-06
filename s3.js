@@ -15,7 +15,7 @@ const s3=new S3({
     secretKey
 })
 
-const uploadFile = () =>
+/*const uploadFile = () =>
   multer({
     storage: multerS3({
       s3,
@@ -27,7 +27,7 @@ const uploadFile = () =>
         cb(null, `image-${Date.now()}.jpeg`);
       },
     }),
-  });
+  });*/
 
   function awsUpload(req, res, next) {
     if (req.file) {
