@@ -4,7 +4,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 const options = {
-  headers: { "Content-Type": "application/json", 'x-auth-token': localStorage.getItem("token") }
+  headers: { "Content-Type": "multipart/form-data", 'x-auth-token': localStorage.getItem("token") }
 }
 
 export const AddDetails = () => {
@@ -78,6 +78,7 @@ export const AddDetails = () => {
     formdata.append('files', images)
     formdata.append('User_Id', localStorage.getItem("User_Id"))
     formdata.append('Date', data.date)
+    formdata.append("District",data.District)
     formdata.append('Crew_name', data.crewName)
     formdata.append('Raider_Incharge_name', data.rIncharge)
     formdata.append('Flight_Supervisor', data.fSupervisor)

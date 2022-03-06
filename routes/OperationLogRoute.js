@@ -5,6 +5,8 @@ const multer = require("multer");
 //const upload = multer({ dest: "uploads/" });
 const { awsMultipartUpload } = require("../s3");
 const fs = require("fs");
+const { promisify}= require("util");
+const unlinkAsync = promisify(fs.unlink);
 const { OperationLog } = require("../models/Operation_Log");
 const upload = multer({ dest: "upload/" }).array("files", 3);
 
@@ -13,6 +15,7 @@ const {
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
 } = require("../middleware/middle");
+
 
 
 
@@ -39,9 +42,10 @@ router.post(
     
       
     } = req.body
+    console.log(req.body)
     let Flight_Details=req.body.Flight_Details 
     Flight_Details=JSON.parse(Flight_Details); 
-   
+    console.log(Flight_Details)
    for(let i=0;i<Flight_Details.length;i++)
  {
      Flight_Details[i].Image=req.body.links[i];
@@ -64,6 +68,7 @@ router.post(
       Flight_Details,
     });
     console.log(operation_Log, 78);
+    
     if (!operation_Log)
       return res
         .status(400)

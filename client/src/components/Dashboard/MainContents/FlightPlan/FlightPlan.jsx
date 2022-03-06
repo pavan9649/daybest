@@ -154,7 +154,7 @@ export const FlightPlan = () => {
                             <th>Distance Covered</th>
                             <th>Duration </th>
                             <th>Remarks</th>
-                            {/* <th className='end'>Attached File</th> */}
+                            { <th className='end'>Attached File</th> }
                         </tr>
                     </thead>
                     {allDetails &&
@@ -172,7 +172,7 @@ export const FlightPlan = () => {
                                             <td>{val.Distance_Covered} </td>
                                             <td>{val.Duration} </td>
                                             <td>{val.Remarks} </td>
-                                            {/* <td id="img"><a href={val.Image} >Click here</a></td> */}
+                                            { <td id="img"><a href={val.Image} >Click here</a></td> }
                                         </tr>
                                     )
                                 })

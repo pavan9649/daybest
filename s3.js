@@ -1,19 +1,23 @@
-const S3= require("aws-sdk/clients/s3");
+//const S3= require("aws-sdk/clients/s3");
 const fs= require("fs");
-const multer = require("multer");
-const multerS3 = require("multer-s3");
+//const multer = require("multer");
+const AWS = require("aws-sdk");
+//const multerS3 = require("multer-s3");
 let { createReadStream, readFileSync, unlink } = require("fs");
 const uuid = require("uuid").v4;
-const bucketName=process.env.AWS_BUCKET_NAME 
-const regin=process.env.AWS_BUCKET_REGION
-const accessKeyId=process.env.ACCESS_KEY_ID
-const secretKey=process.env.SECRET_ACCESS_KEY
+AWS.config.update({ region: "ap-south-1" });
 
-const s3=new S3({
-    regin,
-    accessKeyId,
-    secretKey
-})
+const s3= new AWS.S3({
+  accessKeyId: process.env.accessKeyId,
+  secretAccessKey: process.env. secretAccessKey,
+  Bucket: process.env. Bucket,
+  region: process.env.region,
+  maxRetries: 10,
+  ACL: "public-read",
+  retryDelayOptions: {
+    base: 500,
+  },
+});
 
 /*const uploadFile = () =>
   multer({
@@ -29,34 +33,7 @@ const s3=new S3({
     }),
   });*/
 
-  function awsUpload(req, res, next) {
-    if (req.file) {
-      let image = req.file.originalname.split(".");
-      const fileType = image[image.length - 1];
   
-      let stream = createReadStream(req.file.path);
-      const params = {
-        Bucket: bucketName,
-        Key: `${uuid()}.${fileType}`,
-        Body: stream,
-        "Content-Length": req.file.size,
-      };
-      s3.upload(params, (error, data) => {
-        //console.log(data, error);
-        if (error) {
-          res.status(500).json(error);
-        } else {
-          //console.log(data);
-          req.body.image = data.Location;
-          req.body.pic_name = data.Key;
-  
-          next();
-        }
-      });
-    } else {
-      next();
-    }
-  }
   function uploadFile(file) {
     const fileStream = fs.createReadStream(file.path)
   
@@ -83,14 +60,15 @@ const s3=new S3({
   async function awsMultipartUpload(req, res, next) {
     let s3_links = [];
     let chunkSize = 5 * 1024 * 1024;
-    console.log(req.files.length ,"hello ile")
+    console.log(req.files ,"hello ile")
+    //console.log(req.body)
     for (let i = 0; req.files && i < req.files.length; i++) {
       let numberOfChunks = Math.floor(req.files[i].size / chunkSize) + 1;
       let Parts = [];
       let fileType = req.files[i].originalname.split(".");
       fileType = fileType[fileType.length - 1];
       let buffer = readFileSync(req.files[i].path);
-      let params = { Bucket: bucketName, Key: `${uuid()}.${fileType}` };
+      let params = { Bucket: process.env. Bucket, Key: `${uuid()}.${fileType}` };
       //  returns promise so we need to wait til its resolved or rejected
       let initiateUpload = await s3.createMultipartUpload(params).promise();
       let Body;
